@@ -1,22 +1,22 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { ThoughtsService } from './thoughts.service';
 
 @Controller()
 export class ThoughtsController {
   constructor(private readonly thoughtService: ThoughtsService) {}
 
-  @Get()
+  @Get('/thoughts')
   getThoughts(): object {
     return this.thoughtService.findAll();
   }
 
-  @Post()
+  @Post('/thoughts')
   createThought(message: string): object {
     return this.thoughtService.create(message);
   }
 
-  @Post()
-  updateHearts(thoughtId: string): object {
+  @Post('/thoughts/:thoughtId/like')
+  updateHearts(@Param('thoughtId') thoughtId: string): object {
     return this.thoughtService.findAndUpdate(thoughtId);
   }
 }
