@@ -1,5 +1,9 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { ThoughtsService } from './thoughts.service';
+
+interface CreateThoughtBody {
+  message: string;
+}
 
 @Controller()
 export class ThoughtsController {
@@ -11,8 +15,8 @@ export class ThoughtsController {
   }
 
   @Post('/thoughts')
-  createThought(message: string): object {
-    return this.thoughtService.create(message);
+  createThought(@Body() body: CreateThoughtBody): object {
+    return this.thoughtService.create(body);
   }
 
   @Post('/thoughts/:thoughtId/like')

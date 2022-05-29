@@ -9,7 +9,7 @@ export class ThoughtsService {
     @InjectModel(Thought.name) private thoughtModel: Model<ThoughtDocument>,
   ) {}
 
-  async create(message: string): Promise<Thought> {
+  async create(message: {message:string}): Promise<Thought> {
     const createdThought = new this.thoughtModel(message);
     return createdThought.save();
   }
